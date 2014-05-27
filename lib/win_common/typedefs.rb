@@ -45,6 +45,7 @@ module WinCommon
         FFI.typedef :WORD,       :FSHORT
         FFI.typedef :DWORD,      :FLONG
         FFI.typedef :LONG,       :HRESULT
+        FFI.typedef :pointer,    :PHRESULT
         FFI.typedef :char,       :CCHAR
         FFI.typedef :DWORD,      :LCID
         FFI.typedef :PDWORD,     :PLCID
@@ -116,6 +117,7 @@ module WinCommon
         FFI.typedef :HANDLE,     :HICON
         FFI.typedef :HANDLE,     :HMENU
         FFI.typedef :HICON,      :HCURSOR
+        FFI.typedef :HANDLE,     :HCERTSTORE
         FFI.typedef :short,      :WCHAR
         FFI.typedef :pointer,    :PWCHAR
         FFI.typedef :pointer,    :LPWCH
