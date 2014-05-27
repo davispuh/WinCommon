@@ -1,5 +1,26 @@
 module WinCommon
     module Structs
+        class POINT < FFI::Struct
+            layout({
+                :x => :LONG,
+                :y => :LONG
+            })
+        end
+
+        class SIZE < FFI::Struct
+            layout({
+                :cx => :LONG,
+                :cy => :LONG
+            })
+        end
+
+        class FILETIME < FFI::Struct
+            layout({
+                :dwLowDateTime  => :DWORD,
+                :dwHighDateTime => :DWORD
+            })
+        end
+
         class GUID < FFI::Struct
             layout({
                 :data1 => :ulong,
@@ -31,14 +52,9 @@ module WinCommon
             end
         end
 
-        class IID < GUID
-        end
-
-        class CLSID < GUID
-        end
-
-        class FMTID < GUID
-        end
+        IID = GUID
+        CLSID = GUID
+        FMTID = GUID
 
         class WideString
             extend FFI::DataConverter
@@ -60,13 +76,16 @@ module WinCommon
     end
 
     module Typedefs
-        FFI.typedef Structs::GUID.ptr,          :LPGUID
-        FFI.typedef Structs::GUID.ptr,          :LPCGUID
-        FFI.typedef Structs::IID.ptr,           :LPIID
-        FFI.typedef Structs::CLSID.ptr,         :LPCLSID
-        FFI.typedef Structs::FMTID.ptr,         :LPFMTID
-        FFI.typedef Structs::GUID.by_ref(:in),  :REFGUID
-        FFI.typedef Structs::IID.by_ref(:in),   :REFIID
-        FFI.typedef Structs::CLSID.by_ref(:in), :REFCLSID
+        FFI.typedef Structs::POINT.ptr,                      :PPOINT
+        FFI.typedef Structs::SIZE.ptr,                       :PSIZE
+        FFI.typedef Structs::FILETIME.ptr,                   :PFILETIME
+        FFI.typedef Structs::GUID.ptr,                       :LPGUID
+        FFI.typedef Structs::GUID.ptr,                       :LPCGUID
+        FFI.typedef Structs::IID.ptr,                        :LPIID
+        FFI.typedef Structs::CLSID.ptr,                      :LPCLSID
+        FFI.typedef Structs::FMTID.ptr,                      :LPFMTID
+        FFI.typedef Structs::GUID.by_ref(:in),               :REFGUID
+        FFI.typedef Structs::IID.by_ref(:in),                :REFIID
+        FFI.typedef Structs::CLSID.by_ref(:in),              :REFCLSID
     end
 end
