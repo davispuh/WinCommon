@@ -2,9 +2,6 @@ module WinCommon
     module Errors
         module HRESULT
             # Defined in winerror.h
-            SEVERITY_SUCCESS = 0
-            SEVERITY_ERROR   = 1
-            NOERROR                              = 0x00000000
             S_OK                                 = 0x00000000
             S_FALSE                              = 0x00000001
             E_PENDING                            = 0x8000000A
@@ -41,9 +38,27 @@ module WinCommon
             E_INVALID_DATA                       = 0x8007000D
             E_OUTOFMEMORY                        = 0x8007000E
             E_INVALIDARG                         = 0x80070057
+            module SEVERITY
+                SUCCESS = 0
+                ERROR   = 1
+            end
+
             def self.toUnsigned(hresult)
                 hresult += 0x1_0000_0000 if (hresult < 0)
                 hresult
+            end
+
+            def self.Compare(error, code)
+                error = toUnsigned(error)
+                error <=> code
+            end
+
+            def self.Equal?(error, codes)
+                [*codes].include?(toUnsigned(error))
+            end
+
+            def self.ErrorIfEqual(error, code)
+                raise HRESULTError.new(error) if Equal?(error, code)
             end
 
             def self.GetSeverity(hresult)
@@ -59,11 +74,11 @@ module WinCommon
             end
 
             def self.IsSuccess?(hresult)
-                GetSeverity(hresult) == SEVERITY_SUCCESS
+                GetSeverity(hresult) == SEVERITY::SUCCESS
             end
 
             def self.IsError?(hresult)
-                GetSeverity(hresult) == SEVERITY_ERROR
+                GetSeverity(hresult) == SEVERITY::ERROR
             end
 
             def self.GetName(hresult)
@@ -79,13 +94,18 @@ module WinCommon
                     'UKNOWN_ERROR'
                 end
             end
+
+            def self.GetNameCode(hresult)
+                code = HRESULT.toUnsigned(hresult)
+                HRESULT.GetName(code) + " [0x%08X]" % code
+            end
         end
 
         class HRESULTError < WinCommonError
             attr_reader :code
             def initialize(hr)
                 @code = HRESULT.toUnsigned(hr)
-                super(HRESULT.GetName(@code) + " [0x%08X]" % @code)
+                super(HRESULT.GetNameCode(@code))
             end
         end
     end
