@@ -15,7 +15,6 @@ module WinCommon
         FFI.typedef :pointer,    :PUCHAR
         FFI.typedef :pointer,    :PSZ
         FFI.typedef :pointer,    :CALLBACK
-        FFI.typedef :int,        :BOOL
         FFI.typedef :uchar,      :BYTE
         FFI.typedef :ushort,     :WORD
         FFI.typedef :ulong,      :DWORD
@@ -84,7 +83,6 @@ module WinCommon
         FFI.typedef :long,       :INT_PTR
         FFI.typedef :pointer,    :PINT_PTR
         FFI.typedef :size_t,     :UINT_PTR
-        FFI.typedef :pointer,    :PINT_PTR
         FFI.typedef :long,       :LONG_PTR
         FFI.typedef :pointer,    :PLONG_PTR
         FFI.typedef :size_t,     :ULONG_PTR
