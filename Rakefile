@@ -11,3 +11,4 @@ end
 
 YARD::Rake::YardocTask.new(:doc) do |t|
 end
+
