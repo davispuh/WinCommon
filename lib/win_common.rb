@@ -7,4 +7,8 @@ require_relative 'win_common/errors'
 require_relative 'win_common/libraries'
 require_relative 'win_common/structs'
 require_relative 'win_common/macro'
-require_relative 'win_common/functions'
+
+if defined?(Libraries::Kernel32)
+    require_relative 'win_common/functions'
+end
+
