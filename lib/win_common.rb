@@ -8,7 +8,7 @@ require_relative 'win_common/libraries'
 require_relative 'win_common/structs'
 require_relative 'win_common/macro'
 
-if defined?(Libraries::Kernel32)
+if defined?(WinCommon::Libraries::Kernel32)
     require_relative 'win_common/functions'
 end
 
